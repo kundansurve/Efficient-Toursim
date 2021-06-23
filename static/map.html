@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='utf-8' />
+    <title>Plan your trip</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
+    <script src="../map.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        .body {
+            background-color: white;
+        }
+        
+        @media only screen and (max-width: 650px) {
+            #map {
+                position: fixed;
+                height: 100%;
+                width: 100%;
+                margin: 0;
+                top: 0%;
+                left: 0%;
+            }
+            #instructions {
+                position: absolute;
+                margin: 4%;
+                margin-left: 5%;
+                width: 200px;
+                height: 100px;
+                top: 80%;
+                bottom: 20%;
+                padding-left: 20px;
+                background-color: rgba(255, 255, 255, 0.9);
+                overflow-y: scroll;
+                font-family: sans-serif;
+                font-size: 0.8em;
+                line-height: 2em;
+                z-index: 2;
+                display: flex;
+                flex-direction: column;
+            }
+        }
+        
+        @media only screen and (min-width: 650px) {
+            #map {
+                position: fixed;
+                height: 100%;
+                width: 100%;
+                margin: 0;
+                top: 0%;
+                left: 0%;
+            }
+            #instructions {
+                position: absolute;
+                margin: 4%;
+                margin-left: 5%;
+                width: 200px;
+                height: 300px;
+                top: 0;
+                left: 70%;
+                bottom: 20%;
+                padding-left: 20px;
+                background-color: rgba(255, 255, 255, 0.9);
+                overflow-y: scroll;
+                font-family: sans-serif;
+                font-size: 0.8em;
+                line-height: 2em;
+                z-index: 2;
+                display: flex;
+                flex-direction: column;
+            }
+        }
+        
+        input::-webkit-calendar-picker-indicator {
+            display: none;
+        }
+        
+        #places {
+            display: none;
+            position: fixed;
+        }
+        
+        .buttons {
+            display: flex;
+            align-items: center;
+        }
+        
+        button {
+            background-color: orange;
+            width: 100px;
+            height: auto;
+            margin: 5%;
+            outline: none;
+            border: 0px;
+            color: white;
+            border-radius: 25vh;
+        }
+        
+        button:hover {
+            background-color: blue;
+            cursor: pointer;
+        }
+        
+        .container {
+            width: 200px;
+            height: auto;
+            display: grid;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+            position: fixed;
+            top: 20px;
+            left: 40px;
+        }
+        
+        .input-box {
+            background-color: white;
+            width: 250px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px 20px 20px 20px;
+            border: 1px solid black;
+            margin: 5px;
+        }
+        
+        input {
+            border: 0;
+            outline: 0;
+            width: 200px;
+        }
+        
+        input:focus {
+            outline: none!important;
+        }
+        
+        .duration {
+            font-size: 2em;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='map' style="height: 100%; width:100%;"></div>
+    <div class="container">
+        <div id="inputs">
+            <div class="input-box">
+                <input list="places" class="places_choice" placeholder="Starting point" />
+            </div>
+            <div class="input-box">
+                <input list="places" class="places_choice" placeholder="Destination " id="dest1" opt/>
+            </div>
+            <div class="input-box" style="display: none;">
+                <input list="places" class="dest_choice" placeholder="Destination " id="dest2" pt/>
+            </div>
+            <div class="input-box" style="display: none;">
+                <input list="places" class="dest_choice" placeholder="Destination " id="dest4" opt/>
+            </div>
+            <div class="input-box" style="display: none;">
+                <input list="places" class="dest_choice" placeholder="Destination " id="dest5" opt/>
+            </div>
+            <div class="input-box" style="display: none;">
+                <input list="places" class="dest_choice" placeholder="Destination " id="dest6" opt/>
+            </div>
+            <div class="input-box" style="display: none;">
+                <input list="places" class="dest_choice" placeholder="Destination " id="dest7" opt/>
+            </div>
+            <div class="input-box" style="display: none;">
+                <input list="places" class="dest_choice" placeholder="Destination " id="dest8" opt/>
+            </div>
+            <div class="input-box" style="display: none;">
+                <input list="places" class="dest_choice" placeholder="Destination " id="dest9" opt/>
+            </div>
+            <div class="input-box" style="display: none;">
+                <input list="places" class="dest_choice" placeholder="Destination " id="dest10" opt/>
+            </div>
+        </div>
+        <datalist id="places">
+            <option value="Terraced Garden"></option>
+            <option value="Garden of Silence"></option>
+            <option value="Topiary Park"></option>
+            <option value="Chandigarh Botanical Garden "></option>
+        </datalist>
+        <div class="buttons">
+            <button type="submit" id="add">+ Add Destination</button>
+            <button type="submit" id="create">Create</button>
+        </div>
+    </div>
+    <div id="instructions"></div>
+    <script>
+        var efficientcase = [];
+        // add the JavaScript here
+        mapboxgl.accessToken = 'pk.eyJ1Ijoia3VuZGFuMjgwNDAxIiwiYSI6ImNrbGtidWRleDJpMXEyeW1najUzd25ocGQifQ.oHa1Q7u1zTiE9Fw9ko0pAA';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v10',
+            center: [76.7794, 30.7333], // starting position
+            zoom: 12
+        });
+        // set the bounds of the map
+        var nav = new mapboxgl.NavigationControl();
+        map.addControl(nav, 'bottom-right');
+
+        // initialize the map canvas to interact with later
+        var canvas = map.getCanvasContainer();
+
+        function getRoute(string) {
+            // make a directions request using cycling profile
+            // an arbitrary start will always be the same
+            // only the end or destination will change
+            //start();
+            //console.log(string);
+            var url = 'https://api.mapbox.com/directions/v5/mapbox/driving/' + string + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
+
+            // make an XHR request https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
+            var req = new XMLHttpRequest();
+            req.open('GET', url, true);
+            req.onload = function() {
+                var json = JSON.parse(req.response);
+                var data = json.routes[0];
+                var route = data.geometry.coordinates;
+                var geojson = {
+                    type: 'Feature',
+                    properties: {},
+                    geometry: {
+                        type: 'LineString',
+                        coordinates: route
+                    }
+                };
+                // if the route already exists on the map, reset it using setData
+                if (map.getSource('route')) {
+                    map.getSource('route').setData(geojson);
+                } else { // otherwise, make a new request
+                    map.addLayer({
+                        id: 'route',
+                        type: 'line',
+                        source: {
+                            type: 'geojson',
+                            data: {
+                                type: 'Feature',
+                                properties: {},
+                                geometry: {
+                                    type: 'LineString',
+                                    coordinates: geojson
+                                }
+                            }
+                        },
+                        layout: {
+                            'line-join': 'round',
+                            'line-cap': 'round'
+                        },
+                        paint: {
+                            'line-color': '#3887be',
+                            'line-width': 5,
+                            'line-opacity': 0.75
+                        }
+                    });
+
+                }
+                // add turn instructions here at the end
+                var instructions = document.getElementById('instructions');
+                var steps = data.legs[0].steps;
+                var tripInstructions = [];
+                for (var i = 0; i < steps.length; i++) {
+                    tripInstructions.push('<li>' + steps[i].maneuver.instruction + '</li>');
+                    instructions.innerHTML = '<span class="duration">Trip duration: ' + Math.floor(data.duration / 60) + ' min 🚗 </span>' + tripInstructions;
+                }
+            };
+            req.send();
+        }
+
+
+        //pointing
+        var coordlist = [];
+        var graph = [];
+        let Destination_list = [];
+        var allmarker = [];
+        var allpopups = [];
+        window.onload = () => {
+            const oldobj = document.querySelectorAll('input');
+            var destination_count = 2;
+            const datalistobj = document.querySelector('#places');
+            for (let j = 0; j < 10; j++) {
+                oldobj[j].oninput = (e) => {
+                    let emptyarray = [];
+                    if (e.target.value) {
+                        emptyarray = suggestion["Name of the Place "].filter((data) => {
+                            return data.toLowerCase().startsWith(e.target.value);
+                        });
+                    }
+                    let j = 0;
+                    let optionlist = datalistobj.querySelectorAll('option');
+                    for (i of optionlist) {
+                        if (j < emptyarray.length) {
+                            i.value = emptyarray[j];
+                            j++;
+                            continue;
+                        }
+                        i.value = "";
+                    }
+                }
+            }
+            const button = document.querySelector('#add');
+            button.onclick = event => {
+                if (destination_count < 10) {
+                    const inputobj = document.querySelectorAll('.input-box')[destination_count];
+                    inputobj.style.display = "";
+                    destination_count++;
+                }
+                document.querySelector('#instructions').style.display = "flex";
+            }
+            const inputobj = document.querySelector('input');
+            //inputobj.onchange = "console.log(`Text Changed to ${document.querySelectorAll('input')[2].value}`)";
+            const button2 = document.querySelector('#create');
+            button2.onclick = () => {
+                for (let mark of allmarker) mark.remove();
+                for (let popup of allpopups) popup.remove();
+                graph.splice(0, graph.length);
+                coordlist.splice(0, coordlist.length);
+                Destination_list.splice(0, Destination_list.length)
+                const input_list = document.querySelectorAll("input");
+
+                for (let i = 0; i < input_list.length; i++) {
+                    if (input_list[i].value.length > 0) Destination_list.push(input_list[i].value);
+                }
+                //console.log(Destination_list);
+                var temp = "";
+                for (let place of Destination_list) {
+                    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${place.replace(/ /g, '%20')}.json?limit=1&bbox=76.704402,30.667079,76.84904,30.7951&access_token=${mapboxgl.accessToken.replace(/ /g, '%20')}`;
+
+                    const req1 = new XMLHttpRequest();
+
+
+                    req1.open('GET', url, true);
+                    req1.onload = function() {
+                        const json = JSON.parse(req1.response);
+                        //let temp = [];
+                        const coord1 = json.features[0].geometry.coordinates;
+                        //const coord2 = json.features[0].coordinates[0].toString();
+                        //temp.push(coord1[0], coord1[1]);
+                        graph.push(coord1);
+                        coordlist.push(coord1.join(","));
+                    }
+                    req1.send();
+                }
+                setTimeout(() => {
+                        //start();
+                        let j = 0;
+                        //console.log("graph" + graph[1]);
+                        for (let j = 0; j < graph.length; j++) {
+                            //pointing(graph[j], Destination_list[j]);
+                            //console.log(graph[j] + " " + Destination_list[j]);
+                            var markerHeight = 50,
+                                markerRadius = 10,
+                                linearOffset = 25;
+                            var popupOffsets = {
+                                'top': [0, 0],
+                                'top-left': [0, 0],
+                                'top-right': [0, 0],
+                                'bottom': [0, -markerHeight + 10],
+                                'bottom-left': [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+                                'bottom-right': [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+                                'left': [markerRadius, (markerHeight - markerRadius) * -1],
+                                'right': [-markerRadius, (markerHeight - markerRadius) * -1]
+                            };
+                            let id = placesid[Destination_list[j]];
+                            var popup = new mapboxgl.Popup({
+                                    offset: popupOffsets,
+                                    className: 'my-class'
+                                })
+                                .setLngLat(graph[j])
+                                .setHTML("<p>Place: " + Destination_list[j] + "</p><p>" + "Ratings: " + suggestion['Ratings'][id] + "</p>")
+                                .setMaxWidth("300px")
+                                .addTo(map);
+                            var marker1 = new mapboxgl.Marker()
+                                .setLngLat(graph[j])
+                                .addTo(map);
+                            getRoute(coordlist.join(";"));
+                            allmarker.push(marker1);
+                            allpopups.push(popup);
+                        }
+                    },
+                    500);
+
+            }
+        }
+    </script>
+
+</body>
+
+</html>

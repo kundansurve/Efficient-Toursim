@@ -1,0 +1,110 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;1,300&display=swap');
+
+*,
+*::after,
+*::before
+{
+    box-sizing: border-box;
+    padding:0;
+    margin: 0;
+
+}
+html
+{
+    font-size: 62.5%;
+
+
+}
+body{
+    font-family: 'Poppins', sans-serif;
+
+}
+/* #######utility classes########## */
+.btn{
+    display: inline-block;
+    padding: 1em 2.5em;
+    text-decoration: none;
+    border-radius: 50px;
+    cursor: pointer;
+    outline: none;
+    margin-top: 1em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.btn-1
+{
+    background-color:rgb(20, 20, 20);
+    color: rgb(247, 241, 241);
+
+}
+.btn-1:hover
+{
+    background-color: rgba(231, 13, 13, 0.555);
+    color:#000
+}
+/* ############Nabvar styling############# */
+/* #########Dekstop mode############ */
+.navbar-color
+{
+    background-color:black;
+    color:#fff;
+}
+.navbar .menu-items
+{
+    text-decoration: none;
+    order: 2;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 10rem;
+}
+.navbar li{
+    margin-left:6rem;
+    font-size:3rem;
+    justify-content: space-between;
+}
+.navbar a{
+    text-decoration: none;
+    color:rgb(238, 231, 231);
+    font-weight: 600;
+    transition: color 0.2s ease-in-out;
+
+
+}
+.navbar a:hover{
+    color:#f87b07;
+}
+.main-title{
+    text-transform: uppercase;
+    color:#f87b07;
+    letter-spacing: 2px;
+    text-align:center;
+    padding-top:1em;
+    font-size: 5em;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
+.size
+{
+    height: 500px;
+    max-width: 100%;
+}
+.paragraph-1
+{
+    font-weight: 600;
+    font-size:1.5rem;
+    color: rgb(22, 15, 15);
+    background-color: rgba(167, 156, 156, 0.411);
+    text-align: center;
+}
+  
+/* ********footer******* */
+.footer-1
+{background-color: rgb(41, 38, 38);
+    color:#fff;
+    padding:2rem ;
+    text-align: center;
+    margin-top: 5rem;    
+    font-size: medium;
+
+}

@@ -1,0 +1,174 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;1,300&display=swap');
+
+*,
+*::after,
+*::before
+{
+    box-sizing: border-box;
+    padding:0;
+    margin: 0;
+
+}
+html
+{
+    font-size: 62.5%;
+
+
+}
+body{
+    font-family: 'Poppins', sans-serif;
+}
+h2{
+    position: relative;
+    font-size: 4vw;
+    color:#fff;
+    -webkit-text-stroke: 0.09vw #383d52;
+    text-transform: uppercase;
+    margin-top:10rem;
+}
+h2::before
+{
+    content: attr(data-text);
+    position: absolute;
+    top:0;
+    left:0;
+    width:0%;
+    height: 100%;
+    color:#f87b07;
+    -webkit-text-stroke: 0vw #383d52;
+    overflow:hidden;
+    animation: animate 6s linear infinite;
+}
+@keyframes animate
+{
+    0%,10%,100%
+    {
+        width:0;
+    }
+    70%,90%
+    {
+        width: 100%;
+    }
+}
+h1
+{
+    font-size: 4rem;
+}
+p{
+    font-size: medium;
+}
+
+/* #######utility classes########## */
+.btn{
+    display: inline-block;
+    padding: 1em 2.5em;
+    text-decoration: none;
+    border-radius: 50px;
+    cursor: pointer;
+    outline: none;
+    margin-top: 1em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.btn-1
+{
+    background-color:rgb(20, 20, 20);
+    color: rgb(247, 241, 241);
+
+}
+.btn-1:hover
+{
+    background-color: rgba(231, 13, 13, 0.555);
+    color:#000
+}
+/* ############Nabvar styling############# */
+/* #########Dekstop mode############ */
+.navbar-color
+{
+    background-color:black;
+    color:#fff;
+}
+.navbar .menu-items
+{
+    text-decoration: none;
+    order: 2;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 10rem;
+}
+.navbar li{
+    margin-left:6rem;
+    font-size:3rem;
+    justify-content: space-between;
+}
+.navbar a{
+    text-decoration: none;
+    color:rgb(238, 231, 231);
+    font-weight: 600;
+    transition: color 0.2s ease-in-out;
+
+
+}
+.navbar a:hover{
+    color:#f87b07;
+}
+.showcase-area
+{
+    height: 100vh;
+    background:url("./images/t_1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat:no-repeat;    
+}
+.showcase-container
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size:3rem ;
+    
+
+}
+.main-title{
+    text-transform: uppercase;
+    color:#000;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
+.size
+{
+    height: 500px;
+    max-width: 100%;
+}
+.paragraph
+{
+    color:rgb(255, 255, 255);
+    font-weight: 500;
+    font-size: 2.5rem;
+    font-style: italic;
+}
+.paragraph-1
+{
+    font-weight: 600;
+    font-size:1.5rem;
+    color: rgb(22, 15, 15);
+    background-color: rgba(167, 156, 156, 0.411);
+    text-align: center;
+}
+  
+/* ********footer******* */
+.footer-1
+{  
+    background-color: rgb(41, 38, 38);
+    color:#fff;
+    padding:2rem ;
+    text-align: center;
+    margin-top: 5rem;    
+    font-size: medium;
+
+}
+
+
